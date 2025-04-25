@@ -38,6 +38,13 @@ This repository contains over 100+ interview questions for Large Language Models
 ## Prompt Engineering & Basics of LLM
 
 - **What is the difference between Predictive/Discriminative AI and Generative AI?**
+
+
+Predictive/Discriminative AI: predict labels or outcomes given some input data. It models boundaries between classes (discriminates one thing from another). It learns the probability of label y given features x. It does not neccessarily learns how the input data was generated. the only objective is to predict outcomes correctly. <br>
+Example: classification, regression, email spam or ham etc.
+
+Generative AI: Generate new data samples that look like the training data itself. It models how the data is distributed. It learns the fulls distribution p(x) or the joint distribution p(x, y). It can generate new x's, optionally conditioned on y (like text, images). <br>
+Example: Writting emails. 
 - **What is LLM, and how are LLMs trained?**
 - **What is a token in the language model?**
 - **How to estimate the cost of running SaaS-based and Open Source LLM models?**
