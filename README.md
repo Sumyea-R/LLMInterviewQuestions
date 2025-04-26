@@ -53,6 +53,14 @@ Example: Writting emails.
   Pretraining: Self supervised learning, to predict the next token. Objective is to learn general patterns in the data (language). Usually cross entropy loss function is used for optimization. <br>
   Fine-tuning: Supervised fine tuned on human annotated data or labeled data examples. Also reinforcement learning from human feedback (RLHF) where human preference guide the model outputs. Human preferences or ranking collected to train a "reward model" and LLM tries to maximize reward. 
 - **What is a token in the language model?**
+
+  A token is the smallest unit of text that the language model processes as input or output. It can be a word, subword, charachter, symbol, code etc. <br>
+  Subword tokenization: common words like "cat" stays whole. Uncommon words like "unbelievableness" are broken into "un", "believable", "ness". This way model doesn't need to know every word and can handle rare, new or invented words.
+  Tokenization: Splits text into tokens. Each token is mapped to a unique integer id.
+  - Byte Pair Encoding (GPT-2, GPT-3)
+  - WordPiece (BERT)
+  - Unigram Language Model (SentencePiece)
+  - Tiktoken (GPT-4)
 - **How to estimate the cost of running SaaS-based and Open Source LLM models?**
 - **Explain the Temperature parameter and how to set it.**
 - **What are different decoding strategies for picking output tokens?**
