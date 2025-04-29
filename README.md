@@ -158,6 +158,24 @@ Example: Writting emails.
 
   In context learning is when a large language model learns a task from examples provided directly in the input prompt, without any parameter updates (no gradient descent,no retraining). The model is shown some examples of input-output pairs inside the prompt. The model infers the task pattern just from reading examples. It continues the patters appropriately when given a new input. 
 - **Explain type of prompt engineering**
+
+  - Zero-Shot Prompting: Ask the model with no example to do a task. Only clear instructions.
+  - One-Shot Prompting: Give one example on how to perform the task before asking the real query.
+  - Few-Shot Prompting: Give multiple (2-5) examples in the prompt before querying. For domain specific tasks.
+  - Chain-of-Thought (COT) Prompting: Encourage the model to reason step by step before giving the final answer. For mathmatical, logical tasks.
+  - ReAct Prompting: Prompt the model to interleave resoning with tool use, like search, math, or API calls. Example:
+    ```
+    ```
+  - Instruction Prompting: Provide clear instructions in the prompt.
+    ```
+    ```
+  - Role-based Prompting: Assign a specific persona, role, or identity to the model. Best for chatbot assistants.
+    ```
+    ```
+  - Multi-turn Prompting: For dialogue context. Include prior exchanges to preserve context across turns. For conversational agents.
+    ```
+    ```
+  - Soft Prompting/Prompt Tuning: (Advanced) Instead of textual prompts, inject learned embeddings into the input to guide the model. 
 - **What are some of the aspect to keep in mind while using few-shots prompting?**
 - **What are certain strategies to write good prompt?**
 - **What is hallucination, and how can it be controlled using prompt engineering?**
