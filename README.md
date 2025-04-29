@@ -227,10 +227,22 @@ Example: Writting emails.
     - COT Prompting: It slows down token prediction, encouraging intermediate logical states.
     - Self-Ask Prompting: Decompose the complext question into simpler sub-queries and solve them one at a time.
       ```
+      Q: Who was the president of the U.S. when the Apollo 11 mission landed?
+
+      A: Let's break it into subquestions:
+      - When did Apollo 11 land? → 1969
+      - Who was president in 1969? → Richard Nixon
+      
+      Answer: Richard Nixon
+
       ```
     - Provide reasoning examples: Few-Shot CoT.
     - Constrain output structure for reasoning.
       ```
+      First, list the relevant facts.  
+      Then, explain the logical steps.  
+      Finally, provide the answer.
+
       ```
     - Role-assignment
 - **How to improve LLM reasoning if your COT prompt fails?**
