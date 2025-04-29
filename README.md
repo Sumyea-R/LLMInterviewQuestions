@@ -196,9 +196,43 @@ Example: Writting emails.
     ```
   - Soft Prompting/Prompt Tuning: (Advanced) Instead of textual prompts, inject learned embeddings into the input to guide the model. 
 - **What are some of the aspect to keep in mind while using few-shots prompting?**
+
+    - Example Quality: correct representative, well formatted
+    - Consistent Formatting
+    - Ordering of example can matter: oreder example from simple to complex. LLM processes tokens sequentially. So put easier clearer examples first to establish the pattern.
+    - Use a reasonable number of examples. If too high, waste of context space, confused model.
+    - Task relevant diversity: Include diverse example to include edge cases, typical outputs, different categories, etc.
+    - Clear task definition and instructions.
+    - Watch for overfitting for examples.
+    - Try different example sets for accuracy, style, faithfulness. 
 - **What are certain strategies to write good prompt?**
+
+  Using a clear format that repeats the pattern you want the model to follow. Give the model a role by starting the prompt telling the model who it is. When needed use few shot examples. Specify the output format and avoid prompt overload. Stay within token limits and stay focused. Iteratively test and refine prompts. Clean data before giving it to the model, and parse/validate the result after. Always good to use stop sequence or max tokens to constrain oputputs. 
 - **What is hallucination, and how can it be controlled using prompt engineering?**
+
+  Hallucination is when an LLM generates factually incorrect, fabricated, or misleading content, even though it appears confident. It happens when:
+   - the model is trained to produce plausible continuations, not verified facts.
+   - Lack of grounding, when the model doesn't access external knowledge.
+   - When model blends similar training data to produce likely sounding but incorrect outputs.
+
+  Controlling Hallucination:
+    - Chain-of-thought prompting: Step by step reasoning
+    - Use role assignment to limit speculation.
+    - Provide context and source materials.
+    - Use RAG
+    - Use constrains like, "Only answer based on provided information. Do not make assummptions"
+    - Ask for source where the model got the information.
 - **How to improve the reasoning ability of LLM through prompt engineering?**
+
+    - COT Prompting: It slows down token prediction, encouraging intermediate logical states.
+    - Self-Ask Prompting: Decompose the complext question into simpler sub-queries and solve them one at a time.
+      ```
+      ```
+    - Provide reasoning examples: Few-Shot CoT.
+    - Constrain output structure for reasoning.
+      ```
+      ```
+    - Role-assignment
 - **How to improve LLM reasoning if your COT prompt fails?**
 
 [Back to Top](#table-of-contents)
