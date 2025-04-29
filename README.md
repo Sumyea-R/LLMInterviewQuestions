@@ -165,15 +165,34 @@ Example: Writting emails.
   - Chain-of-Thought (COT) Prompting: Encourage the model to reason step by step before giving the final answer. For mathmatical, logical tasks.
   - ReAct Prompting: Prompt the model to interleave resoning with tool use, like search, math, or API calls. Example:
     ```
+    Question: What is the population of Berlin divided by the number of districts?
+
+    Thought: I need to search for the population and district count.
+    Action: Search["population of Berlin"]
+    Observation: 3.6 million
+    ...
+    Final Answer: 3.6 million / 12 = 300,000
+
     ```
   - Instruction Prompting: Provide clear instructions in the prompt.
     ```
+    You are a helpful assistant. Convert the list into JSON format with fields name and age.
+    Input: John, 30; Alice, 25
+
     ```
   - Role-based Prompting: Assign a specific persona, role, or identity to the model. Best for chatbot assistants.
     ```
+    You are a polite customer support assistant. Answer the following complaint:
+
+    "My product arrived broken."
+
     ```
   - Multi-turn Prompting: For dialogue context. Include prior exchanges to preserve context across turns. For conversational agents.
     ```
+    User: What are the symptoms of flu?  
+    Assistant: Common symptoms include fever, cough, and sore throat.  
+    User: And how can I treat it at home?
+
     ```
   - Soft Prompting/Prompt Tuning: (Advanced) Instead of textual prompts, inject learned embeddings into the input to guide the model. 
 - **What are some of the aspect to keep in mind while using few-shots prompting?**
