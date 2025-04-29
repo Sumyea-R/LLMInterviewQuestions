@@ -148,8 +148,15 @@ Example: Writting emails.
     ```
 - **Explain the basic structure prompt engineering.**
 
-  
+  Prompt engineering the practice of designing the input text given to a large language model to guide the output towards a desired format.
+  - Instruction: Tell the model what you want it to do, explicitly and clearly.
+  - Context: Give background information needed to complete the task better and reducing ambiguity.
+  - Input Data: Give LLM some actual data that it needs to work on. This could be text, tables, code.
+  - Output Format: Tell LLM how you want the answer structured. This will make parsing easier, more usability. 
+    
 - **Explain in-context learning**
+
+  In context learning is when a large language model learns a task from examples provided directly in the input prompt, without any parameter updates (no gradient descent,no retraining). The model is shown some examples of input-output pairs inside the prompt. The model infers the task pattern just from reading examples. It continues the patters appropriately when given a new input. 
 - **Explain type of prompt engineering**
 - **What are some of the aspect to keep in mind while using few-shots prompting?**
 - **What are certain strategies to write good prompt?**
