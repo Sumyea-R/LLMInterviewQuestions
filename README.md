@@ -247,6 +247,22 @@ Example: Writting emails.
     - Role-assignment
 - **How to improve LLM reasoning if your COT prompt fails?**
 
+  Why CoT fails:
+    - Model too small
+    - Prompt lacks good reasoning examples
+    - Prompt too vague
+    - Task is fundamentally hard (might need external tool)
+
+  If CoT fails, switch to strategies like task decomposition, reasoning formats, few-shot examples, role assigning, RAG or even tool-augmented prompting.
+    - Self ask or decompositioning prompting.
+    - Use structured prompt templates
+    - Few-shot CoT
+    - Use ReAct prompting
+    - Assign domain specific role
+    - Use iterative prompting: ask, check, revise
+    - Try rephrasing the question
+    - Fallback to retrieval or Tool use (RAG, Agents)
+
 [Back to Top](#table-of-contents)
 
 ---
