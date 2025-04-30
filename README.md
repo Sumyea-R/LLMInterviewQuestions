@@ -270,10 +270,36 @@ Example: Writting emails.
 ## Retrieval Augmented Generation (RAG)
 
 - **how to increase accuracy, and reliability & make answers verifiable in LLM**
+
+  - Ground the model using external Context (RAG). Fetch documents from trusted sources, database, search engines, pdfs... This makes answers verifiable via checking it against the context.
+  - Chain-of-thought
+  - Assigning role
+  - Use post-answer verification prompt. Ask the model to critique its own answer or provide evidence, like sources. This is useful in multi-agent system.
+  - Use multiple LLMs or multiple passes and compare results. Use voting, ensemble to pick answers.
+  - Use temperature + decoding constraints: Set low temperature to limit randomness; improving accuracy and reliability.
 - **How does RAG work?**
+
+  RAG is a framework where an LLM generates responses based on retrieved external documents, rather than relying only on its external knowledge. It helps prevent hallucinations. Following shows how RAG works, step-by-step.
+    - Query Embedding: When user asks a question, the query is converted into a vector, using a embedding model (sentence transformer, OpenAI embeddings)
+    - Document Retrieval: The query embedding is used to perform vector similarity search in a document database. (using FAISS, Pinecone, Qdrant, Elastisearch) to retirieve top-k most relevant documents/passages.
+    - Context Injection: The retrieved documents are added to the prompt given to the LLM.
+    - Answer Generation: The LLM reads the combined question + retrieved context and generates an answer based on that. 
 - **What are some benefits of using the RAG system?**
+
+  RAG systems improve LLM accuracy and trustworthiness by grounding generation in real documents, reducing hallucination, supporting pricate or domain-specific knowledge and enabling easy updates without retraining the model. 
+  - Improves accuracy and reduces hallucinations.
+  - RAG enables traceability, Makes responses verifiable
+  - RAG adds knowledge without retraining the LLM.
+  - Adds domain specific private knoowledge
+  - Improves performance on Long-Tail queries.
 - **When should I use Fine-tuning instead of RAG?**
+
+    Fine-tuning is better when you need the model to learn patterns, tasks, or skills instead of just recalling information/facts. Like sentiment classification, style imitation (write like Shakespeare). If you don't have external documents or retrieval is weak. RAG introduces retrieval latency and more computation per query. If you need low-latency or offline generation then fine-tuning is better. 
 - **What are the architecture patterns for customizing LLM with proprietary data?**
+  To customize an LLM with proprietary data, choose between RAG, fine-tuning, prompt-based retrieval or agent based architectures depending on whether the task needs dynamic grounding, behavior learning, structured reasoning, or too orchestration.
+  - RAG
+  - Fine-Tune if possible (expensive and slower to deploy)
+  - Agent Based LLM + Tool Calling. LLM orchestrate (LangChain, OpenAI) tools that query proprietary data. 
 
 [Back to Top](#table-of-contents)
 
