@@ -308,8 +308,27 @@ Example: Writting emails.
 ## Document digitization & Chunking 
 
 - **What is chunking, and why do we chunk our data?**
+
+  Chunking is the process of splitting largedocuments or unstructured text into smaller pieces (chunks) to make them suitable for embedding, storage, and retrieval in an LLM based system. Each chunk becomes a unit of retrieval, when a user submits a query, relevant chunks are retrieved via vector similarity search and injected into prompt.
+
+  Why Chunking: LLMs can't take large documents, chunking ensures pieces fit within the context window size. This way LLM retrieves parts, not entire documents.
+  Chunking ensures efficient embeddings for models, and embedding models work best on small, coherent segments. Better chunking leads to better matches during similarity search.
 - **What factors influence chunk size?**
+
+  Chunk size refers to the number of tokens, words or characters in each piece of text you split from a larger document to store and retrieve during RAG or embedding workflows. Chunk size is influenced by different factors.
+    - LLM context window size. You can't inject more context than the model can handle. Chunk size must be small enough so multiple chunks can fit with the user query and prompt instructions.
+    - Embedding model limits: Embedding models have a maximum token input size, usually 512-8192 tokens.
+    - Semantic Coherence: chunks should contain complete thoughts, not fragments.
+    - Document Type and structure: for HTML/Markdown file headers, sections need to be considered. PDFs consider paragraphs , line breaks. For code preserve full functions or classes. For tables avoid breaking across rows/columns.
+    - Use Case requirements: use case FAQ, chunk size short 100-300 tokens. For legal/technical docs, 300-800 tokens.... etc.
+ 
+  The goal is to balance precison, context and performance.
 - **What are the different types of chunking methods?**
+
+    - Fixed-size Chunking: Simple sliding window. Split by tokens, (e.g., every 500 tokens)
+    - Semantic or sentence based chunking: Split by paragraphs, sentences, or sections. This preserves meaning boundaries. This produces more coherent chunks.
+    - Metadata aware chunking: Preserve document structure, like heading, bullet points, tables, footnotes. This requires parsing logic.
+    - Hybrid Chunking: Recursive splitting. Combine semantic and fixed-length. First try to split paragraphs. If too large, split again by sentence. Then finally by characters. 
 - **How to find the ideal chunk size?**
 - **What is the best method to digitize and chunk complex documents like annual reports?**
 - **How to handle tables during chunking?**
