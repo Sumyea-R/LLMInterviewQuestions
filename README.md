@@ -330,6 +330,23 @@ Example: Writting emails.
     - Metadata aware chunking: Preserve document structure, like heading, bullet points, tables, footnotes. This requires parsing logic.
     - Hybrid Chunking: Recursive splitting. Combine semantic and fixed-length. First try to split paragraphs. If too large, split again by sentence. Then finally by characters. 
 - **How to find the ideal chunk size?**
+
+    To find the ideal chunk size, start with 200-800 token ranges, use semantic chunking with overlap, and empirically evaluate retrieval hit rate and LLM answer quality to choose the best trade-off between context, cost, and accuracy.
+    - Know the limit: What is the model's max context length? How much of that needs to be reserved for? Keep each chunk well below 1/4 to 1/3 of the context window to allow for multiple chunks per prompt.
+    - Start with smart defaults: Short factual documents: 200-300 tokens. Paragraph-level QA: 400-600 tokens. Code or structured text: 600-1000 tokens. Include 20-30% overlap to preserve continuity.
+    - Implement Recursive Chunking: Use chunker that split on semantic boundaries (paragraphs, sentences). Fall back to token count if boundaries are too large. Use tools like LangChain: RecursiveCharacterTextSplitter, Hugging Face: sentence-transformers or nltk sentence tokenizers.
+    - Empirically evaluate chunk size: Once you have indexed chunks of different sizes (200, 400, 600, 800 tokens) evaluate using
+        - Hit rate: Does the correct chunk get retrieved?
+        - Answer accuracy: Does the LLM produce correct, grounded answers?
+        - Latency/Cost: larger chunks = fewer retrieval calls, but higher token cost.
+        - Hallucination rate: are answers using irrelevant context?
+    <br>this evaluations can be done using LangChain eval, trulens, Regas (Retrieval-Augmented Generation Evaluation)
+    - Compare retrieval performances across chunk sizes
+        - Precision: Is the retrieved content more focused?
+        - Recall: does the chunk contain all needed information?
+        - answer quality: Does LLM improve or degrade?
+  <br> too small chunks - higher precision, but may miss context. Too large chunks - recall improves, but precission drops, more hallucinations.
+    - Choose the sweet spot: Select the chunk size that offers high retrieval accuracy, answer groundedness and acceptable latency and cost.
 - **What is the best method to digitize and chunk complex documents like annual reports?**
 - **How to handle tables during chunking?**
 - **How do you handle very large table for better retrieval?**
