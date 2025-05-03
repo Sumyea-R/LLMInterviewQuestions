@@ -348,6 +348,13 @@ Example: Writting emails.
   <br> too small chunks - higher precision, but may miss context. Too large chunks - recall improves, but precission drops, more hallucinations.
     - Choose the sweet spot: Select the chunk size that offers high retrieval accuracy, answer groundedness and acceptable latency and cost.
 - **What is the best method to digitize and chunk complex documents like annual reports?**
+
+  The best way to digitize and chunk complex documents like annual reports is to extract structured content using layout-aware parsers, segment by section headers, chunk sematically with token limits, and store chunks with metadata for traceable retrieval in a RAG piepline.
+    - Use structured PDF parser (PyMuPDF/ pdfplumber) to extract clean text + structure. This will preserve headings, table regions, figure captions, page breaks.
+    - Segment the document into logival sections. Split based on headings, structural markers (line patterns, indentation). We want semantic chunk boundaries, no mid sentence or mid-table breaks.
+    - Once the logical chunk sections are extracted, apply token-based or recursive chunking within each section. LangChain → RecursiveCharacterTextSplitter with chunk size (e.g., 600 tokens) and overlap.
+    - Preserve metadata for retrieval. Add metadata for section title, page number, document type...
+    - Store in a vector store. 
 - **How to handle tables during chunking?**
 - **How do you handle very large table for better retrieval?**
 - **How to handle list item during chunking?**
