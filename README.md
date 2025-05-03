@@ -356,10 +356,53 @@ Example: Writting emails.
     - Preserve metadata for retrieval. Add metadata for section title, page number, document type...
     - Store in a vector store. 
 - **How to handle tables during chunking?**
+
+    To handle tables during chunking, detect them using structure-aware parsers, keep them as atomic blocks or row-based chunks with headers preserved, format them cleanly, and attach metadata to support reliable retrieval and reasoning RAG pipelines.
+    - Detect tables during parsing. pdfplumber, Unstructured..
+    - Treat each table as an atomic chunk. If table fits within chunk limits (<600 tokens), keep it whole. If too large, chunk by row group, don't split mid row and always include the header row in each chunk.
+    - Preserve table metadata. Table caption, section title, row range, page number..
+    - Store table chunks as structured text or markdown (preferred for LLMs).
 - **How do you handle very large table for better retrieval?**
+
+    - Row-based chunking with header repetition.
+    - Add metadata to each chunk
+    - Decompose table into subtbles if table has hierarchy. ex: table for revenue by region, table for Q1-Q4 results.
 - **How to handle list item during chunking?**
-- **How do you build production grade document processing and indexing pipeline?**
+
+    To handle list items during chunking, detect and preserve their structure, chunk them by logical groups without breaking steps, format them in markdown, and attach metadata to support accurate retrieval.
+    - Detect Lists during parsing. unstructures.
+    - Keep list items in the same chunk if possible.
+    - Chunk large lists by logical groups. ex. based on categories. ALways repeat the list title in each chunk to maintain context.
+    - Preserve list formatting. Markdown style best for OpenAI.
+    - Attach metadata to list chunks, list title, item start index, item end index, section title, page number, parent heading, etc.
+    - Avoid splitting nested lists mid-depth. Chunk the whole sublist with its parent. 
+- **How do you build production grade document processing and indexing pipeline?**\
+
+    To build a production-grade document processing pipeline, parse layout-aware text, chunk semantically, enrich with metadata, embed each chunk, index in a vector store with hybrid search, and expose it through a RAG layer with monitoring and evaluation built in.
+
+    - Parsing and Cleaning: normalize layout, remove noise, detect titles,paragraphs, lists, tables, images, charts
+    - Semantic chunking
+    - Metadata extraction and enrichment, attach useful info for filtering and reranking
+    - Embedding: convert each chunk into vector representation for similarity search.
+    - Indexing: Vector DB (FAISS< Qdrant, Weaviate, Pinecone)
+    - Retrieval and Generation
 - **How to handle graphs & charts in RAG**
+
+    To handle charts and graphs in RAG, extract textual summaries describing their structure and key trends, embedd those summaries for retrieval and optionally link to the original image for UI display or vision-based models.
+  
+    - Extract or describe charts during ingestion. Use OCR chart parser (PaddleOCR/ Tesseract) to extract titles, axis labels, legends, data points and generate textual summary, like what the axes represents, key insights etc.
+      ```
+      Chart Title: Quarterly Revenue by Region  
+      X-Axis: Quarter (Q1–Q4)  
+      Y-Axis: Revenue in USD  
+      Observation: Revenue increased steadily in Europe, with a 20% jump from Q2 to Q3.
+
+      ```
+    - Link the image with the textual description. (optional)
+    - Embedd the textual summary.
+    - Optional: Use multimodal models for visuals (GPT-4V, Gemini Pro Vision) works best for complex visuals (scatter plot, medical imaging)
+    - Store charts as separate chunks with metadata.
+   
 
 [Back to Top](#table-of-contents)
 
